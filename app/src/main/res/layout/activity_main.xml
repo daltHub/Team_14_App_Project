@@ -1,33 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="498dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:text="1 p.m. 17, Feb" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 p.m. 17, Feb" />
 
-    <include layout="@layout/content_main" />
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3 p.m. 17, Feb" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4 p.m. 17, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 p.m. 17, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 p.m. 18, Feb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 p.m. 18, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3 p.m. 18, Feb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4 p.m. 18, Feb"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 p.m. 18, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 p.m. 19, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2 p.m. 19, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3 p.m. 19, Feb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <CheckBox
+            android:id="@+id/checkBox14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4 p.m. 19, Feb" />
+
+        <CheckBox
+            android:id="@+id/checkBox15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 p.m. 19, Feb" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="21dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:text="Select A Date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
