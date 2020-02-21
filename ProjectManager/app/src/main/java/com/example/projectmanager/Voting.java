@@ -7,14 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ProgressAct extends AppCompatActivity {
+public class Voting extends AppCompatActivity {
 
     private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progress);
+        setContentView(R.layout.activity_voting);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener((new View.OnClickListener() {

@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ToDoList"></activity>
         <activity android:name=".Messenger"></activity>
+        <activity android:name=".Voting"></activity>
     </application>
 
 </manifest>
