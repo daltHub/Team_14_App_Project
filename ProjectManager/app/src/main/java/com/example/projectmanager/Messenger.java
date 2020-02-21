@@ -44,7 +44,7 @@ public class Messenger extends AppCompatActivity implements RoomListener {
             @Override
             public void onOpen() {
                 System.out.println("Scaledrone connection open");
-                scaledrone.subscribe(roomName, Progress.this);
+                scaledrone.subscribe(roomName, Messenger.this);
             }
 
             @Override
