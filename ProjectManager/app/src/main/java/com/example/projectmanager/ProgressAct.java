@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Progress extends AppCompatActivity {
+public class ProgressAct extends AppCompatActivity {
 
     private Button button;
 
