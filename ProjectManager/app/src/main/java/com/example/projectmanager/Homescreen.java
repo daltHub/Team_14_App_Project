@@ -33,10 +33,10 @@ public class Homescreen extends AppCompatActivity {
                 startActivity(messenger);
             }
         });
-        messages.setOnClickListener(new View.OnClickListener() {
+        progress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent progr = new Intent(v.getContext(), ProgressAct.class);
-                startActivity(progr);
+                Intent prog = new Intent(v.getContext(), ProgressAct.class);
+                startActivity(prog);
             }
         });
 
