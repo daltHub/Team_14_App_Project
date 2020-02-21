@@ -48,6 +48,7 @@ public class ToDoList extends AppCompatActivity {
             case R.id.action_homescreen:
                 Intent goHome = new Intent(this, Homescreen.class);
                 startActivity(goHome);
+                return true;
             case R.id.action_add_task:
                 final EditText taskEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)

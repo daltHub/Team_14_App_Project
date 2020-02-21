@@ -27,12 +27,14 @@ public class Homescreen extends AppCompatActivity {
                 startActivity(toDoList);
             }
         });
+
         messages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent messenger = new Intent(v.getContext(), Messenger.class);
                 startActivity(messenger);
             }
         });
+        
         progress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent prog = new Intent(v.getContext(), ProgressAct.class);
