@@ -35,7 +35,7 @@ public class Homescreen extends AppCompatActivity {
         });
         messages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent progr = new Intent(v.getContext(), Progress.class);
+                Intent progr = new Intent(v.getContext(), ProgressAct.class);
                 startActivity(progr);
             }
         });
