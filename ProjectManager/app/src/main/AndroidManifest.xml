@@ -19,6 +19,7 @@
         <activity android:name=".ToDoList"></activity>
         <activity android:name=".Messenger"></activity>
         <activity android:name=".Voting"></activity>
+        <activity android:name=".Calendar"></activity>
     </application>
 
 </manifest>
