@@ -28,6 +28,13 @@ public class Homescreen extends AppCompatActivity {
             }
         });
 
+        calendar.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent calend = new Intent(v.getContext(), Calendar.class);
+                startActivity(calend);
+            }
+        });
+
         messages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent messenger = new Intent(v.getContext(), Messenger.class);
