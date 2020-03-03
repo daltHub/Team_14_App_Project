@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "299135876396",
+    "firebase_url": "https://herding-cats-b7c36.firebaseio.com",
+    "project_id": "herding-cats-b7c36",
+    "storage_bucket": "herding-cats-b7c36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299135876396:android:f9f507f317c1221bd28089",
+        "android_client_info": {
+          "package_name": "com.example.projectmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "299135876396-4cjeq2ntmnq2e0gonqo1585l540dpn8h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projectmanager",
+            "certificate_hash": "a2b17dbebad63a92ceae6cb1bd8e2ee0a207f4e5"
+          }
+        },
+        {
+          "client_id": "299135876396-617eneruvace54u9dna895d7o4al6vvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3vKVlERaT1sm3avn8oD8-bcBP8voP5bM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "299135876396-617eneruvace54u9dna895d7o4al6vvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

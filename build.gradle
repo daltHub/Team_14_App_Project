@@ -3,15 +3,22 @@
 buildscript {
     
     repositories {
-        google()
         jcenter()
-        
+        mavenLocal()
+        maven { url 'https://maven.fabric.io/public'  }
+        google()
     }
     dependencies {
+<<<<<<< Updated upstream:build.gradle
         classpath 'com.android.tools.build:gradle:3.6.0-rc02'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.0.0'
 
 
+=======
+        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'io.fabric.tools:gradle:1.28.1'
+>>>>>>> Stashed changes:ProjectManager/build.gradle
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -19,12 +26,15 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
-        
+        mavenLocal()
+        maven { url 'https://maven.google.com'  }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'com.google.gms.google-services'
+

@@ -1,0 +1,63 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.projectmanager"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="15"
+8-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:5:5-6:54
+11-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:6:9-51
+12
+13    <application
+13-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:8:5-26:19
+14        android:allowBackup="true"
+14-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:9:9-35
+15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+15-->[androidx.core:core:1.1.0] C:\Users\conor\.gradle\caches\transforms-2\files-2.1\e9dab9c67c1ee3668e0bbf86c6d8cbd8\core-1.1.0\AndroidManifest.xml:24:18-86
+16        android:debuggable="true"
+17        android:icon="@mipmap/ic_launcher"
+17-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:10:9-43
+18        android:label="@string/app_name"
+18-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:11:9-41
+19        android:roundIcon="@mipmap/ic_launcher_round"
+19-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:12:9-54
+20        android:supportsRtl="true"
+20-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:13:9-35
+21        android:testOnly="true"
+22        android:theme="@style/AppTheme" >
+22-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:14:9-40
+23        <activity android:name="com.example.projectmanager.Homescreen" >
+23-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:15:9-21:20
+23-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:15:19-45
+24            <intent-filter>
+24-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:16:13-20:29
+25                <action android:name="android.intent.action.MAIN" />
+25-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:17:17-69
+25-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:17:25-66
+26
+27                <category android:name="android.intent.category.LAUNCHER" />
+27-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:19:17-77
+27-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:19:27-74
+28            </intent-filter>
+29        </activity>
+30        <activity android:name="com.example.projectmanager.ToDoList" />
+30-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:22:9-55
+30-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:22:19-43
+31        <activity android:name="com.example.projectmanager.Messenger" />
+31-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:23:9-56
+31-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:23:19-44
+32        <activity android:name="com.example.projectmanager.Voting" />
+32-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:24:9-53
+32-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:24:19-41
+33        <activity android:name="com.example.projectmanager.Calendar" />
+33-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:25:9-55
+33-->C:\Users\conor\AndroidStudioProjects\Team_14_App_Project\ProjectManager\app\src\main\AndroidManifest.xml:25:19-43
+34    </application>
+35
+36</manifest>
