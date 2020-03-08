@@ -3,6 +3,7 @@ package com.example.projectmanager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -50,23 +51,23 @@ public class Result extends AppCompatActivity {
         barChart.setTouchEnabled(true);
         barChart.setDragEnabled(true);
         barChart.setScaleEnabled(true);
+        String name_variable = getIntent().getStringExtra("NAME_VARIABLE");
+        String date = getIntent().getStringExtra("Date");
+        String date1 = getIntent().getStringExtra("Date1");
+        String date2 = getIntent().getStringExtra("Date2");
+        String date3 = getIntent().getStringExtra("Date3");
+        String date4 = getIntent().getStringExtra("Date4");
+        String name = "Hi! " + name_variable;
+        TextView message = (TextView) findViewById(R.id.textView3);
+        message.setText(name);
 
         final ArrayList<String> xAxisLabel = new ArrayList<>();
-        xAxisLabel.add("17/2 1 p.m.");
-        xAxisLabel.add("2 p.m.");
-        xAxisLabel.add("3 p.m.");
-        xAxisLabel.add("4 p.m.");
-        xAxisLabel.add("5 p.m.");
-        xAxisLabel.add("18/2 1 p.m.");
-        xAxisLabel.add("2 p.m.");
-        xAxisLabel.add("3 p.m.");
-        xAxisLabel.add("4 p.m.");
-        xAxisLabel.add("5 p.m.");
-        xAxisLabel.add("19/2 1 p.m.");
-        xAxisLabel.add("2 p.m.");
-        xAxisLabel.add("3 p.m.");
-        xAxisLabel.add("4 p.m.");
-        xAxisLabel.add("5 p.m.");
+        xAxisLabel.add(date);
+        xAxisLabel.add(date1);
+        xAxisLabel.add(date2);
+        xAxisLabel.add(date3);
+        xAxisLabel.add(date4);
+
 
         XAxis xAxis = barChart.getXAxis();
         xAxis.setDrawAxisLine(false);
