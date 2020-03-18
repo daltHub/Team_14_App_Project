@@ -6,5 +6,9 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/back_to_homescreen"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/action_back_to_poll"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/back_to_poll"
+        app:showAsAction="ifRoom" />
 </menu>

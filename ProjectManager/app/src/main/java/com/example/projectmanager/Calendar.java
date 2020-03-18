@@ -1,9 +1,16 @@
 package com.example.projectmanager;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.widget.Button;
@@ -88,6 +95,23 @@ public class Calendar extends AppCompatActivity  {
 
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_homescreen:
+                Intent goHome = new Intent(this, Homescreen.class);
+                startActivity(goHome);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
