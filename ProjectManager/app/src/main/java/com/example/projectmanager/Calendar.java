@@ -18,6 +18,8 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,11 +29,12 @@ public class Calendar extends AppCompatActivity  {
 
     private Button mButton;
     int d, m, y;
-    String events[] = new String[31];
     CalendarView calendarView;
     TextView dateDisplay;
     EditText inputField;
     Button displayButton;
+    DatabaseReference reff;
+    Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +47,15 @@ public class Calendar extends AppCompatActivity  {
 
         mButton = findViewById(R.id.ebutton);
         displayButton = findViewById(R.id.dbutton);
-
         inputField = findViewById(R.id.editText3);
 
 
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
-        dateDisplay = (TextView) findViewById(R.id.date_display);
+        calendarView = findViewById(R.id.calendarView);
+        dateDisplay = findViewById(R.id.date_display);
         dateDisplay.setText("Date: ");
+
+        reff = FirebaseDatabase.getInstance().getReference("events");
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -70,14 +75,7 @@ public class Calendar extends AppCompatActivity  {
         mButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String text = inputField.getText().toString();
-                if(TextUtils.isEmpty(events[d])) {
-                    events[d] = text;
-                }else{
-                    events[d] = events[d] + "\n" + text;
-                }
-                Toast.makeText(getApplicationContext(), "Events Saved", Toast.LENGTH_SHORT).show();
-
+                addEvent();
             }
         });
 
@@ -85,8 +83,7 @@ public class Calendar extends AppCompatActivity  {
         displayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String dtext= events[d];
-                Toast.makeText(getApplicationContext(), "Events: " + dtext, Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -114,7 +111,18 @@ public class Calendar extends AppCompatActivity  {
         }
     }
 
-
+    private void addEvent(){
+        event=new Event();
+        String text = inputField.getText().toString();
+        String id = reff.push().getKey();
+        event.setId(id);
+        event.setName(text);
+        event.setDay(d);
+        event.setMonth(m);
+        event.setYear(y);
+        reff.child(id).setValue(event);
+        Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
+    }
 
 
 }
