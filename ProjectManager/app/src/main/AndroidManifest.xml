@@ -16,11 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ToDoList"></activity>
-        <activity android:name=".Messenger"></activity>
-        <activity android:name=".Voting"></activity>
-        <activity android:name=".Calendar"></activity>
-        <activity android:name=".Result"></activity>
+        <activity
+            android:name=".ToDoList"
+            android:label="@string/to_do_list"></activity>
+        <activity
+            android:name=".Messenger"
+            android:label="@string/messenger"></activity>
+        <activity
+            android:name=".Voting"
+            android:label="@string/availability_poll"></activity>
+        <activity
+            android:name=".Calendar"
+            android:label="@string/calendar"></activity>
+        <activity
+            android:name=".Result"
+            android:label="@string/availability_poll"></activity>
     </application>
 
 </manifest>

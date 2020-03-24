@@ -2,7 +2,11 @@ package com.example.projectmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -25,7 +29,6 @@ public class Result extends AppCompatActivity {
 
         barChart = (BarChart) findViewById(R.id.bargraph);
 
-
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0,0));
         entries.add(new BarEntry(1,1));
@@ -45,6 +48,7 @@ public class Result extends AppCompatActivity {
 
         BarDataSet barDataSet = new BarDataSet(entries, "Dataset");
 
+        barDataSet.setColor(Color.parseColor("#5eec3f"));
         BarData data = new BarData(barDataSet);
 
         barChart.setData(data);
@@ -75,6 +79,27 @@ public class Result extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu_poll, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_homescreen:
+                Intent goHome = new Intent(this, Homescreen.class);
+                startActivity(goHome);
+                return true;
+            case R.id.action_back_to_poll:
+                Intent goPoll = new Intent(this, Voting.class);
+                startActivity(goPoll);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
