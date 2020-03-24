@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">HerdingCats</string>
+    <string name="app_name">Herding Cats</string>
+    <string name="to_do_list">To Do List</string>
+    <string name="calendar">Calendar</string>
+    <string name="messenger">Messenger</string>
+    <string name="availability_poll">Availability Poll</string>
+    <string name="back_to_homescreen">Back To Homescreen</string>
+    <string name="add_task">Add Task</string>
+    <string name="back_to_poll">Back To Poll</string>
 </resources>
