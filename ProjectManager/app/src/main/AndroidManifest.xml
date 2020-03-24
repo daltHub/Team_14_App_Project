@@ -9,28 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Homescreen">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Homescreen">
+        </activity>
         <activity
             android:name=".ToDoList"
-            android:label="@string/to_do_list"></activity>
+            android:label="@string/to_do_list" />
         <activity
             android:name=".Messenger"
-            android:label="@string/messenger"></activity>
+            android:label="@string/messenger" />
         <activity
             android:name=".Voting"
-            android:label="@string/availability_poll"></activity>
+            android:label="@string/availability_poll" />
         <activity
             android:name=".Calendar"
-            android:label="@string/calendar"></activity>
+            android:label="@string/calendar" />
         <activity
             android:name=".Result"
-            android:label="@string/availability_poll"></activity>
+            android:label="@string/availability_poll" />
     </application>
 
 </manifest>
