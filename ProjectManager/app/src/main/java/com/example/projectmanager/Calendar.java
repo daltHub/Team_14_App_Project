@@ -74,7 +74,11 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         mButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                openDialog();
+                Bundle args = new Bundle();
+                args.putString("day", String.valueOf(d));
+                args.putString("month", String.valueOf(m));
+                args.putString("year", String.valueOf(y));
+                openDialog(args);
 
             }
         });
@@ -129,8 +133,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
     }
 
-    public void openDialog(){
+    public void openDialog(Bundle bundle){
         EventPopUp eventPopUp = new EventPopUp();
+        eventPopUp.setArguments(bundle);
         eventPopUp.show(getSupportFragmentManager(), "CreateEvent");
     }
 
