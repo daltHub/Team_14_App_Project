@@ -9,7 +9,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -18,12 +18,20 @@ import androidx.fragment.app.DialogFragment;
 public class EventPopUp extends AppCompatDialogFragment {
     private EditText editName;
     private EditText editDesc;
+    private TextView date;
     private DialogListener listener;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.eventpopup, null);
+        Bundle args = getArguments();
+        String day = args.getString("day");
+        String month = args.getString("month");
+        String year = args.getString("year");
+        //String date1 = day + "/" + month + "/" + year;
+        date = view.findViewById(R.id.DialogTitle);
+        date.setText("Date: " + day + "/" + month +"/" + year);
 
         builder.setView(view)
                 .setTitle("New Event")
@@ -33,7 +41,7 @@ public class EventPopUp extends AppCompatDialogFragment {
                         //DialogFragment.this.getDialog().cancel();
                     }
                 })
-                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i){
                         String name = editName.getText().toString();
