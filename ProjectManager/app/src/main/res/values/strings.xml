@@ -7,4 +7,5 @@
     <string name="back_to_homescreen">Back To Homescreen</string>
     <string name="add_task">Add Task</string>
     <string name="back_to_poll">Back To Poll</string>
+    <string name="backup">"homescreen "</string>
 </resources>
