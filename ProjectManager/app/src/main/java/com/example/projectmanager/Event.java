@@ -6,9 +6,18 @@ public class Event {
     private int Year;
     private String id;
     private String Name;
+    private String Desc;
 
     public Event(){
 
+    }
+
+    public String getDesc() {
+        return Desc;
+    }
+
+    public void setDesc(String desc) {
+        Desc = desc;
     }
 
     public String getId() {

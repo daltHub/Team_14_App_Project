@@ -25,7 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class Calendar extends AppCompatActivity  {
+public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener {
 
     private Button mButton;
     int d, m, y;
@@ -47,7 +47,6 @@ public class Calendar extends AppCompatActivity  {
 
         mButton = findViewById(R.id.ebutton);
         displayButton = findViewById(R.id.dbutton);
-        inputField = findViewById(R.id.editText3);
 
 
         calendarView = findViewById(R.id.calendarView);
@@ -75,7 +74,8 @@ public class Calendar extends AppCompatActivity  {
         mButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                addEvent();
+                openDialog();
+
             }
         });
 
@@ -83,7 +83,7 @@ public class Calendar extends AppCompatActivity  {
         displayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                viewEvents();
             }
         });
 
@@ -111,12 +111,13 @@ public class Calendar extends AppCompatActivity  {
         }
     }
 
-    private void addEvent(){
+    private void addEvent(String text, String desc){
         event=new Event();
-        String text = inputField.getText().toString();
+        //String text = inputField.getText().toString();
         String id = reff.push().getKey();
         event.setId(id);
         event.setName(text);
+        event.setDesc(desc);
         event.setDay(d);
         event.setMonth(m);
         event.setYear(y);
@@ -124,5 +125,18 @@ public class Calendar extends AppCompatActivity  {
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
     }
 
+    private void viewEvents(){
 
+    }
+
+    public void openDialog(){
+        EventPopUp eventPopUp = new EventPopUp();
+        eventPopUp.show(getSupportFragmentManager(), "CreateEvent");
+    }
+
+    @Override
+    public void applyText(String Name, String desc){
+        //inputField.setText(Name);
+        addEvent(Name, desc);
+    }
 }
