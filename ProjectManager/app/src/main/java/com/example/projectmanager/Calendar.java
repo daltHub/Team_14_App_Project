@@ -83,17 +83,12 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
             }
         });
 
-
         displayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewEvents();
             }
         });
-
-
-
-
 
 
     }
