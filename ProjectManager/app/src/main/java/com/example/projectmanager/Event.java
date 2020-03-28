@@ -12,6 +12,11 @@ public class Event {
 
     }
 
+    public Event(String name, String Desc){
+        this.Name = name;
+        this.Desc = Desc;
+
+    }
     public String getDesc() {
         return Desc;
     }

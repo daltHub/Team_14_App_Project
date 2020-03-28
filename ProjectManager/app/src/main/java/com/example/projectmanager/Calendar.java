@@ -2,7 +2,6 @@ package com.example.projectmanager;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,21 +19,24 @@ import android.widget.TextView;
 import android.view.View;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener {
 
-    private Button mButton;
+
     int d, m, y;
     CalendarView calendarView;
-    TextView dateDisplay;
     EditText inputField;
-    Button displayButton;
     DatabaseReference reff;
     Event event;
+    RecyclerView recyclerView;
+    RecyclerAdapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+    List<Event> eventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,50 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
 
 
-        mButton = findViewById(R.id.ebutton);
-        displayButton = findViewById(R.id.dbutton);
 
+
+        eventList = new ArrayList<>();
 
         calendarView = findViewById(R.id.calendarView);
-        dateDisplay = findViewById(R.id.date_display);
-        dateDisplay.setText("Date: ");
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        eventList.add(
+                new Event(
+                        "Test event",
+                        "This is test"
+                ));
+        eventList.add(
+                new Event(
+                        "Test event2",
+                        "This is test"
+                ));
+        eventList.add(
+                new Event(
+                        "Test event3",
+                        "This is test"
+                ));
+        eventList.add(
+                new Event(
+                        "Test event4",
+                        "This is test"
+                ));
+        eventList.add(
+                new Event(
+                        "Test event5",
+                        "This is test"
+                ));
+        eventList.add(
+                new Event(
+                        "Test event6",
+                        "This is test"
+                ));
+
+        adapter = new RecyclerAdapter(this, eventList);
+        recyclerView.setAdapter(adapter);
 
         reff = FirebaseDatabase.getInstance().getReference("events");
 
@@ -61,7 +100,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
             public void onSelectedDayChange(final CalendarView calendarView, int i, int i1, int i2) {
                 i1 = i1 +1;
 
-                dateDisplay.setText("Date: " + i2 + " / " + i1  + " / " + i);
+                //dateDisplay.setText("Date: " + i2 + " / " + i1  + " / " + i);
                 d = i2;
                 m = i1;
                 y = i;
@@ -71,30 +110,12 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
         });
 
-        mButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Bundle args = new Bundle();
-                args.putString("day", String.valueOf(d));
-                args.putString("month", String.valueOf(m));
-                args.putString("year", String.valueOf(y));
-                openDialog(args);
-
-            }
-        });
-
-        displayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewEvents();
-            }
-        });
 
 
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu_calendar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -105,6 +126,13 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                 Intent goHome = new Intent(this, Homescreen.class);
                 startActivity(goHome);
                 return true;
+
+            case R.id.action_add_event:
+                Bundle args = new Bundle();
+                args.putString("day", String.valueOf(d));
+                args.putString("month", String.valueOf(m));
+                args.putString("year", String.valueOf(y));
+                openDialog(args);
             default:
                 return super.onOptionsItemSelected(item);
         }

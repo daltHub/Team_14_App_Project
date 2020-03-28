@@ -23,60 +23,23 @@
         tools:layout_conversion_absoluteHeight="300dp"
         tools:layout_conversion_absoluteWidth="379dp" />
 
-    <TextView
-        android:id="@+id/date_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginEnd="200dp"
-        android:layout_marginRight="200dp"
-        android:layout_marginBottom="56dp"
-        android:text="Calendar Selected Date:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintBottom_toTopOf="@+id/ebutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.916"
-        tools:layout_conversion_absoluteHeight="30dp"
-        tools:layout_conversion_absoluteWidth="268dp" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="49dp"
 
-    <Button
-        android:id="@+id/ebutton"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:background="#53a041"
-        android:text="SET EVENT"
-        android:textColor="#000000"
-        android:textColorHint="#5eec3f"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dbutton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
+        />
 
-    <Button
-        android:id="@+id/dbutton"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginRight="150dp"
-        android:background="#53a041"
-        android:text="DISPLAY"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ebutton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
