@@ -47,28 +47,19 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     Query query;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_calendar);
-
         eventList = new ArrayList<>();
-
         calendarView = findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new RecyclerAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
 
         reff = FirebaseDatabase.getInstance().getReference("events");
-        //reff.addListenerForSingleValueEvent(valueEventListener);
-
-
-
-
-
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -87,8 +78,6 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
             }
 
         });
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,25 +95,21 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
             case R.id.action_add_event:
                 Bundle args = new Bundle();
-                args.putString("day", String.valueOf(d));
-                args.putString("month", String.valueOf(m));
-                args.putString("year", String.valueOf(y));
+                args.putString("date", date);
                 openDialog(args);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void addEvent(String text, String desc){
+    private void addEvent(String text, String time, String desc){
         event=new Event();
         //String text = inputField.getText().toString();
         String id = reff.push().getKey();
         event.setId(id);
         event.setName(text);
         event.setDesc(desc);
-        event.setDay(d);
-        event.setMonth(m);
-        event.setYear(y);
+        event.setTime(time);
         event.setDate(date);
         reff.child(id).setValue(event);
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
@@ -138,9 +123,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
     @Override
-    public void applyText(String Name, String desc){
+    public void applyText(String Name, String time, String desc){
         //inputField.setText(Name);
-        addEvent(Name, desc);
+        addEvent(Name, time, desc);
     }
 
     protected void displayEvents(){
@@ -155,15 +140,12 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
                         eventList.add(event);
                     }
-
-
                 }
+                query = reff.orderByChild("time");
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

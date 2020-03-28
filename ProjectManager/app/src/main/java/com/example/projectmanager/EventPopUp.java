@@ -17,7 +17,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class EventPopUp extends AppCompatDialogFragment {
     private EditText editName;
-    private EditText editDesc;
+    private EditText editDesc, editTime;
     private TextView date;
     private DialogListener listener;
     @Override
@@ -26,12 +26,10 @@ public class EventPopUp extends AppCompatDialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.eventpopup, null);
         Bundle args = getArguments();
-        String day = args.getString("day");
-        String month = args.getString("month");
-        String year = args.getString("year");
+        String Date = args.getString("date");
         //String date1 = day + "/" + month + "/" + year;
         date = view.findViewById(R.id.DialogTitle);
-        date.setText("Date: " + day + "/" + month +"/" + year);
+        date.setText("Date: " + Date);
 
         builder.setView(view)
                 .setTitle("New Event")
@@ -45,12 +43,14 @@ public class EventPopUp extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i){
                         String name = editName.getText().toString();
+                        String time = editTime.getText().toString();
                         String desc = editDesc.getText().toString();
-                        listener.applyText(name, desc);
+                        listener.applyText(name, time, desc);
                     }
 
         });
         editName = view.findViewById(R.id.edit_name);
+        editTime = view.findViewById(R.id.edit_time);
         editDesc = view.findViewById(R.id.edit_desc);
 
         return builder.create();
@@ -67,6 +67,6 @@ public class EventPopUp extends AppCompatDialogFragment {
     }
 
     public interface DialogListener{
-        void applyText(String name, String desc);
+        void applyText(String name, String time, String desc);
     }
 }
