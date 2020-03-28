@@ -1,5 +1,6 @@
 package com.example.projectmanager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
@@ -17,8 +18,14 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,25 +36,20 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
 
     int d, m, y;
+    String date;
     CalendarView calendarView;
-    EditText inputField;
     DatabaseReference reff;
     Event event;
     RecyclerView recyclerView;
     RecyclerAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
     List<Event> eventList;
-
+    Query query;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
-
-
-
 
         eventList = new ArrayList<>();
 
@@ -57,42 +59,15 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
-        eventList.add(
-                new Event(
-                        "Test event",
-                        "This is test"
-                ));
-        eventList.add(
-                new Event(
-                        "Test event2",
-                        "This is test"
-                ));
-        eventList.add(
-                new Event(
-                        "Test event3",
-                        "This is test"
-                ));
-        eventList.add(
-                new Event(
-                        "Test event4",
-                        "This is test"
-                ));
-        eventList.add(
-                new Event(
-                        "Test event5",
-                        "This is test"
-                ));
-        eventList.add(
-                new Event(
-                        "Test event6",
-                        "This is test"
-                ));
-
         adapter = new RecyclerAdapter(this, eventList);
         recyclerView.setAdapter(adapter);
 
         reff = FirebaseDatabase.getInstance().getReference("events");
+        //reff.addListenerForSingleValueEvent(valueEventListener);
+
+
+
+
 
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -104,12 +79,14 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                 d = i2;
                 m = i1;
                 y = i;
-
+                date  = String.valueOf(d) + "/" + String.valueOf(m) + "/" + String.valueOf(y);
                 //Toast.makeText(getApplicationContext(), "Selected Date:\n" + "Day = " + i2 + "\n" + "Month = " + i1 + "\n" + "Year = " + i, Toast.LENGTH_LONG).show();
+                query = reff.orderByChild("date").equalTo(date);
+                displayEvents();
+
             }
 
         });
-
 
 
     }
@@ -148,13 +125,11 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         event.setDay(d);
         event.setMonth(m);
         event.setYear(y);
+        event.setDate(date);
         reff.child(id).setValue(event);
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
     }
 
-    private void viewEvents(){
-
-    }
 
     public void openDialog(Bundle bundle){
         EventPopUp eventPopUp = new EventPopUp();
@@ -167,4 +142,32 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         //inputField.setText(Name);
         addEvent(Name, desc);
     }
+
+    protected void displayEvents(){
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventList.clear();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+
+                        Event event = eventSnapshot.getValue(Event.class);
+
+                        eventList.add(event);
+                    }
+
+
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
 }

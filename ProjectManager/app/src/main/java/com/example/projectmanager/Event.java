@@ -4,9 +4,13 @@ public class Event {
     private int Day;
     private int Month;
     private int Year;
+    private String Date;
+    private int GroupID;
     private String id;
     private String Name;
     private String Desc;
+
+
 
     public Event(){
 
@@ -17,6 +21,15 @@ public class Event {
         this.Desc = Desc;
 
     }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
     public String getDesc() {
         return Desc;
     }
@@ -63,6 +76,14 @@ public class Event {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public int getGroupID() {
+        return GroupID;
+    }
+
+    public void setGroupID(int groupID) {
+        GroupID = groupID;
     }
 }
 
