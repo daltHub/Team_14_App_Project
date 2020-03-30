@@ -51,9 +51,10 @@ public class Login extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String id = user.getUid();
+                String id = mDatabase.child("users").push().getKey();
+                String uid = user.getUid();
                 String umail = user.getEmail();
-                User u = new User(umail);
+                User u = new User(umail, uid);
                 mDatabase.child("users").child(id).setValue(u);
                 Intent homeScreen = new Intent(getApplicationContext(), Homescreen.class);
                 startActivity(homeScreen);
