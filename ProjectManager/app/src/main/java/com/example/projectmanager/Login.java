@@ -19,7 +19,7 @@ import java.util.List;
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    DatabaseReference ref;
+    private DatabaseReference mDatabase;
 
     int RC_SIGN_IN = 0;
 
@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build());
 
@@ -50,17 +51,10 @@ public class Login extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                //Log.e("Test",user.getUid());
-                //Log.e("Test", user.getEmail());
-                //Log.e("Test", user.getDisplayName());
-                ref = FirebaseDatabase.getInstance().getReference("users");
-                String id = ref.push().getKey();
-                User u = new User();
-                u.setUserid(user.getUid());
-                u.setUsermail(user.getEmail());
-                u.setUsername(user.getDisplayName());
-                u.setId(id);
-                ref.setValue(u);
+                String id = user.getUid();
+                String umail = user.getEmail();
+                User u = new User(umail);
+                mDatabase.child("users").child(id).setValue(u);
                 Intent homeScreen = new Intent(getApplicationContext(), Homescreen.class);
                 startActivity(homeScreen);
             } else {
