@@ -50,9 +50,9 @@ public class Login extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Log.e("Test",user.getUid());
-                Log.e("Test", user.getEmail());
-                Log.e("Test", user.getDisplayName());
+                //Log.e("Test",user.getUid());
+                //Log.e("Test", user.getEmail());
+                //Log.e("Test", user.getDisplayName());
                 ref = FirebaseDatabase.getInstance().getReference("users");
                 String id = ref.push().getKey();
                 User u = new User();
