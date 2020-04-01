@@ -25,7 +25,8 @@ public class User {
     }
 
     public void setUserid(String pId){
-        usermail = pId;
+        userid = pId;
     }
 
 }
+

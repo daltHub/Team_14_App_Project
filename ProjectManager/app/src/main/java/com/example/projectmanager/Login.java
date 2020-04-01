@@ -55,8 +55,8 @@ public class Login extends AppCompatActivity {
                 String uid = user.getUid();
                 String umail = user.getEmail();
                 User u = new User(umail, uid);
-                mDatabase.child("users").child(id).setValue(u);
-                Intent homeScreen = new Intent(getApplicationContext(), Homescreen.class);
+                mDatabase.child("users").child(uid).setValue(u);
+                Intent homeScreen = new Intent(getApplicationContext(), GroupScreen.class);
                 startActivity(homeScreen);
             } else {
                 // Sign in failed. If response is null the user canceled the
