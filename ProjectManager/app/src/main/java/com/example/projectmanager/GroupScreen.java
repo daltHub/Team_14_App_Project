@@ -130,5 +130,8 @@ public class GroupScreen extends AppCompatActivity {
         Groupuser gu = new Groupuser(id,uid,groupName);
         String id2 = mDatabase.child("groupuser").push().getKey();
         mDatabase.child("groupuser").child(id2).setValue(gu);
+        Intent groupSet = new Intent(getBaseContext(), GroupSettings.class);
+        groupSet.putExtra("GROUPID",id);
+        startActivity(groupSet);
     }
 }
