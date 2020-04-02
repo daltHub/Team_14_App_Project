@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -133,6 +135,24 @@ public class GroupSettings extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_homescreen:
+                Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
+                startActivity(goHome);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     void addNewGroupmember(String userMail){
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference("users");
         Query userquery = userref.orderByChild("usermail").equalTo(userMail);

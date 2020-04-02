@@ -49,7 +49,8 @@ public class Voting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
-
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
 //        Firebase.setAndroidContext(this);
 
 
@@ -177,9 +178,12 @@ public class Voting extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
         switch (item.getItemId()) {
             case R.id.action_homescreen:
                 Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
                 startActivity(goHome);
                 return true;
             default:

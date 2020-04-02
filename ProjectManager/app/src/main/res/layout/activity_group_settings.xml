@@ -32,7 +32,11 @@
             android:id="@+id/newMember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add new groupmember" />
+            android:background="@drawable/button_selector_green"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@string/add_new_group_member"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#000000" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
