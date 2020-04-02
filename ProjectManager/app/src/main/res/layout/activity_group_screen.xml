@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipToPadding="false"
+        android:focusableInTouchMode="true">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/messages_view"
+            android:layout_weight="2"
+            android:divider="#fff"
+            android:layout_height="wrap_content"
+            tools:context=".DisplayMessageActivity"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/addNewGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Add New Group" />
+        </LinearLayout>
+
+</LinearLayout>

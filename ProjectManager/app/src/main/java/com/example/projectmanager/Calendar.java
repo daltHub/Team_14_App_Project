@@ -130,23 +130,23 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
     protected void displayEvents(){
         query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                eventList.clear();
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    eventList.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
-                        Event event = eventSnapshot.getValue(Event.class);
+                            Event event = eventSnapshot.getValue(Event.class);
 
-                        eventList.add(event);
+                            eventList.add(event);
+                        }
                     }
+                    query = reff.orderByChild("time");
+                    adapter.notifyDataSetChanged();
                 }
-                query = reff.orderByChild("time");
-                adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
         });
     }
 
