@@ -54,7 +54,8 @@ public class Login extends AppCompatActivity {
                 String id = mDatabase.child("users").push().getKey();
                 String uid = user.getUid();
                 String umail = user.getEmail();
-                User u = new User(umail, uid);
+                String uName = user.getDisplayName();
+                User u = new User(umail, uid, uName);
                 mDatabase.child("users").child(uid).setValue(u);
                 Intent homeScreen = new Intent(getApplicationContext(), GroupScreen.class);
                 startActivity(homeScreen);

@@ -72,7 +72,10 @@ public class GroupScreen extends AppCompatActivity {
                     groupList.setAdapter(ad);
                     groupList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                            Log.e("Test", groupuserList.get(position).getGroupname());
+                            String groupId = groupuserList.get(position).getGroupid();
+                            Intent homes = new Intent(getBaseContext(), Homescreen.class);
+                            homes.putExtra("GROUPID",groupId);
+                            startActivity(homes);
                         }
                     });
                 }
@@ -124,11 +127,12 @@ public class GroupScreen extends AppCompatActivity {
     void addNewGroup(String groupName){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String id = mDatabase.child("groups").push().getKey();
+        String id2 = mDatabase.child("groupuser").push().getKey();
         String uid = user.getUid();
+        String uname = user.getDisplayName();
         Group g = new Group(groupName, id);
         mDatabase.child("groups").child(id).setValue(g);
-        Groupuser gu = new Groupuser(id,uid,groupName);
-        String id2 = mDatabase.child("groupuser").push().getKey();
+        Groupuser gu = new Groupuser(id2,id,uid,groupName,uname);
         mDatabase.child("groupuser").child(id2).setValue(gu);
         Intent groupSet = new Intent(getBaseContext(), GroupSettings.class);
         groupSet.putExtra("GROUPID",id);
