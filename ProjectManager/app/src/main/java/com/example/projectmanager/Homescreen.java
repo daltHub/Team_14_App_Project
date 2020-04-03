@@ -16,7 +16,7 @@ public class Homescreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
-        String groupId = getIntent().getStringExtra("GROUPID");
+        final String groupId = getIntent().getStringExtra("GROUPID");
         Log.e("GROUPID - TEST", groupId);
         Button toDo = findViewById(R.id.button);
         Button messages = findViewById(R.id.button2);
@@ -47,6 +47,7 @@ public class Homescreen extends AppCompatActivity {
         progress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent prog = new Intent(v.getContext(), Voting_v2.class);
+                prog.putExtra("GROUPIDVOTE", groupId);
                 startActivity(prog);
             }
         });
