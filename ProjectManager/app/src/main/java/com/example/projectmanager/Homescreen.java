@@ -46,7 +46,7 @@ public class Homescreen extends AppCompatActivity {
 
         progress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent prog = new Intent(v.getContext(), Voting.class);
+                Intent prog = new Intent(v.getContext(), Voting_v2.class);
                 startActivity(prog);
             }
         });
