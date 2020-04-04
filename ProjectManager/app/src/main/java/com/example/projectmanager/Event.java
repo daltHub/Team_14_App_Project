@@ -3,7 +3,7 @@ package com.example.projectmanager;
 public class Event {
     private int Time;
     private String Date;
-    private int GroupID;
+    private String GroupID;
     private String id;
     private String Name;
     private String Desc;
@@ -60,11 +60,11 @@ public class Event {
         Name = name;
     }
 
-    public int getGroupID() {
+    public String getGroupID() {
         return GroupID;
     }
 
-    public void setGroupID(int groupID) {
+    public void setGroupID(String groupID) {
         GroupID = groupID;
     }
 }

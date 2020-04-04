@@ -39,6 +39,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
 
     int d, m, y;
+    String groupId;
     String date;
     CalendarView calendarView;
     DatabaseReference reff;
@@ -52,7 +53,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        final String groupId = getIntent().getStringExtra("GROUPID");
+        groupId = getIntent().getStringExtra("GROUPID");
         Log.e("GROUPID - TEST", groupId);
         eventList = new ArrayList<>();
         calendarView = findViewById(R.id.calendarView);
@@ -118,6 +119,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         event.setDesc(desc);
         event.setTime(Integer.parseInt(time));
         event.setDate(date);
+        event.setGroupID(groupId);
         reff.child(id).setValue(event);
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
     }
@@ -144,9 +146,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                         for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                             Event event = eventSnapshot.getValue(Event.class);
-
-                            eventList.add(event);
-
+                            if(event.getGroupID() == groupId){
+                                eventList.add(event);
+                            }
                         }
                     }
                     Collections.sort(eventList, new Comparator<Event>(){
