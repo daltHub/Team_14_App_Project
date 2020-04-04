@@ -31,6 +31,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener {
@@ -114,7 +116,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         event.setId(id);
         event.setName(text);
         event.setDesc(desc);
-        event.setTime(time);
+        event.setTime(Integer.parseInt(time));
         event.setDate(date);
         reff.child(id).setValue(event);
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
@@ -144,9 +146,15 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                             Event event = eventSnapshot.getValue(Event.class);
 
                             eventList.add(event);
+
                         }
                     }
-                    query = reff.orderByChild("time");
+                    Collections.sort(eventList, new Comparator<Event>(){
+                        @Override
+                        public int compare(Event e1, Event e2) {
+                            return Integer.valueOf(e1.getTime()).compareTo(Integer.valueOf(e2.getTime()));
+                        }
+                    });
                     adapter.notifyDataSetChanged();
                 }
                 @Override
@@ -154,6 +162,8 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                 }
         });
     }
+
+
 
 
 

@@ -1,7 +1,7 @@
 package com.example.projectmanager;
 
 public class Event {
-    private String Time;
+    private int Time;
     private String Date;
     private int GroupID;
     private String id;
@@ -32,11 +32,11 @@ public class Event {
         return Desc;
     }
 
-    public String getTime() {
+    public int getTime() {
         return Time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         Time = time;
     }
 
