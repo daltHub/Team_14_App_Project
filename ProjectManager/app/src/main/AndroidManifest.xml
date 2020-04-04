@@ -30,8 +30,7 @@
             android:name=".Voting_v2"
             android:label="@string/availability_poll" />
         <activity
-            android:name=".meeting_setter"
-            android:label="@string/availability_poll" />
+            android:name=".meeting_setter" />
         <activity
             android:name=".Calendar"
             android:label="@string/calendar" />
