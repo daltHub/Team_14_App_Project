@@ -3,9 +3,14 @@
     <string name="to_do_list">To Do List</string>
     <string name="calendar">Calendar</string>
     <string name="messenger">Messenger</string>
+    <string name="groupscreen">Your Groups</string>
+    <string name="groupsettings">Group Settings</string>
     <string name="availability_poll">Availability Poll</string>
     <string name="back_to_homescreen">Back To Homescreen</string>
     <string name="add_task">Add Task</string>
     <string name="back_to_poll">Back To Poll</string>
-    <string name="backup">"homescreen "</string>
+    <string name="add_new_group">Add New Group</string>
+    <string name="add_new_group_member">Add New Group Member</string>
+    <string name="group_settings">Group Settings</string>
+    <string name="group_screen">Change Group</string>
 </resources>
