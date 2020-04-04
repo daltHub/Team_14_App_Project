@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ public class Result extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
 
         barChart = (BarChart) findViewById(R.id.bargraph);
 
@@ -88,13 +91,17 @@ public class Result extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
         switch (item.getItemId()) {
             case R.id.action_homescreen:
                 Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
                 startActivity(goHome);
                 return true;
             case R.id.action_back_to_poll:
                 Intent goPoll = new Intent(this, Voting.class);
+                goPoll.putExtra("GROUPID",groupId);
                 startActivity(goPoll);
                 return true;
             default:
