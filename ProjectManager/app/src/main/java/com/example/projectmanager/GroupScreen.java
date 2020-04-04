@@ -75,6 +75,9 @@ public class GroupScreen extends AppCompatActivity {
                             String groupId = groupuserList.get(position).getGroupid();
                             Intent homes = new Intent(getBaseContext(), Homescreen.class);
                             homes.putExtra("GROUPID",groupId);
+
+
+
                             startActivity(homes);
                         }
                     });

@@ -27,14 +27,13 @@
             android:name=".Messenger"
             android:label="@string/messenger" />
         <activity
-            android:name=".Voting"
+            android:name=".Voting_v2"
             android:label="@string/availability_poll" />
+        <activity
+            android:name=".meeting_setter" />
         <activity
             android:name=".Calendar"
             android:label="@string/calendar" />
-        <activity
-            android:name=".Result"
-            android:label="@string/availability_poll" />
     </application>
 
 </manifest>
