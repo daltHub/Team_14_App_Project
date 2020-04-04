@@ -9,9 +9,9 @@
 
     <Button
         android:id="@+id/button"
-        android:background="@drawable/button_selector"
         android:layout_width="160dp"
         android:layout_height="50dp"
+        android:background="@drawable/button_selector"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/to_do_list"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34"   />
+        app:layout_constraintVertical_bias="0.575" />
 
     <Button
         android:id="@+id/button2"
@@ -37,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.421" />
 
     <Button
         android:id="@+id/button3"
@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888" />
+        app:layout_constraintVertical_bias="0.875" />
 
     <Button
         android:id="@+id/button4"
@@ -69,5 +69,37 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.719" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/group_settings"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/group_screen"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.276" />
 </androidx.constraintlayout.widget.ConstraintLayout>

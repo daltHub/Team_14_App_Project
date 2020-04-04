@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -48,8 +49,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_calendar);
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
         eventList = new ArrayList<>();
         calendarView = findViewById(R.id.calendarView);
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -87,9 +89,12 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
         switch (item.getItemId()) {
             case R.id.action_homescreen:
                 Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
                 startActivity(goHome);
                 return true;
 

@@ -27,10 +27,14 @@
 
             <Button
                 android:id="@+id/addNewGroup"
+                android:background="@drawable/button_selector_green"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="@string/add_new_group"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Add New Group" />
+                android:layout_weight="2"/>
         </LinearLayout>
 
 </LinearLayout>
