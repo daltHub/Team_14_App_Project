@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".meeting_setter">
+
+    <TextView
+        android:id="@+id/textViewmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="55dp"
+        android:text="TextViewofmin"
+        app:layout_constraintStart_toEndOf="@+id/Timesetter"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewmeeting_setter"
+        android:layout_marginLeft="35dp" />
+
+    <CalendarView
+        android:id="@+id/calendarViewmeeting_setter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Timesetter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Set A Time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewmeeting_setter" />
+
+    <TextView
+        android:id="@+id/textViewhour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="35dp"
+        android:text="TextViewofhour"
+        app:layout_constraintEnd_toStartOf="@+id/Timesetter"
+        app:layout_constraintTop_toBottomOf="@+id/calendarViewmeeting_setter"
+        />
+
+    <Button
+        android:id="@+id/buttonconfirmsetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:text="Finish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewmin" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Set more date"
+        app:layout_constraintEnd_toStartOf="@+id/buttonconfirmsetting"
+        app:layout_constraintTop_toBottomOf="@+id/Timesetter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
