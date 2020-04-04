@@ -146,7 +146,8 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                         for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
 
                             Event event = eventSnapshot.getValue(Event.class);
-                            if(event.getGroupID() == groupId){
+
+                            if(event.getGroupID().equals(groupId)){
                                 eventList.add(event);
                             }
                         }
