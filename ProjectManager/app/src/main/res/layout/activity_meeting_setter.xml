@@ -30,13 +30,19 @@
 
     <Button
         android:id="@+id/Timesetter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Set A Time"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector_green"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/add_a_time"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarViewmeeting_setter" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.704" />
 
     <TextView
         android:id="@+id/textViewhour"
@@ -51,23 +57,34 @@
 
     <Button
         android:id="@+id/buttonconfirmsetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:text="Finish"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector_green"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/finish"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewmin" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.955" />
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Set more date"
-        app:layout_constraintEnd_toStartOf="@+id/buttonconfirmsetting"
-        app:layout_constraintTop_toBottomOf="@+id/Timesetter" />
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector_green"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/set_more_dates"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.829" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
