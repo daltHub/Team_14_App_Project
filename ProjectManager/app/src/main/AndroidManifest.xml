@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".meeting_setter"></activity>
+        <activity android:name=".Display_meeting_avail"></activity>
+        <activity android:name=".meeting_setter" />
         <activity android:name=".displayresult" />
         <activity android:name=".Voting_v2" />
         <activity

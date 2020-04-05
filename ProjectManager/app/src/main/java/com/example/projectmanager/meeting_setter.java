@@ -45,11 +45,11 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 yr = String.valueOf(year);
-                mth = String.valueOf(month);
-                day = String.valueOf(dayOfMonth);
+//                mth = String.valueOf(month+1);
+//                day = String.valueOf(dayOfMonth);
 
                 intday = dayOfMonth;
-                intmth = month;
+                intmth = month+1;
                 intyr = year;
 
                 set.setYear(year);
@@ -75,8 +75,8 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("meetings");
                 databaseReference.push().setValue(set);
                 //databaseReference.push().setValue("Success");
-                Intent newvote = new Intent(getBaseContext(), Homescreen.class);
-                newvote.putExtra("Looping", groupID);
+                Intent newvote = new Intent(getBaseContext(), Display_meeting_avail.class);
+                newvote.putExtra("GROUPID", groupID);
                 startActivity(newvote);
 
             }
