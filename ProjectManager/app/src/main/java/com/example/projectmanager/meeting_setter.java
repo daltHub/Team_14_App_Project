@@ -7,6 +7,9 @@ import androidx.fragment.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -111,6 +114,32 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu_poll, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
+        switch (item.getItemId()) {
+            case R.id.action_homescreen:
+                Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
+                startActivity(goHome);
+                return true;
+            case R.id.action_back_to_poll:
+                Intent goPoll = new Intent(this, Voting_v2.class);
+                goPoll.putExtra("GROUPID",groupId);
+                startActivity(goPoll);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -103,6 +105,26 @@ public class Voting_v2 extends AppCompatActivity{
         //listView.setAdapter(adapter1);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
+        switch (item.getItemId()) {
+            case R.id.action_homescreen:
+                Intent goHome = new Intent(this, Homescreen.class);
+                goHome.putExtra("GROUPID",groupId);
+                startActivity(goHome);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onRestart() {
         super.onRestart();
