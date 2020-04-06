@@ -190,6 +190,7 @@ public class Voting_v2 extends AppCompatActivity{
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showResult(view);
                 Intent displayintent = new Intent(view.getContext(), Display_meeting_avail.class);
                 displayintent.putExtra("GROUPID", groupId);
                 displayintent.putExtra("Uniqid", "Voting_v2");

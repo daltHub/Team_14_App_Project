@@ -94,7 +94,6 @@ public class Display_meeting_avail extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()){
-                            Toast.makeText(context, "Delete Success, Please return to HomePage", Toast.LENGTH_LONG).show();
                             for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                                 meeting_helper object = snapshot.getValue(meeting_helper.class);
                                 if (object.getStringoftime().equals(stringdate) && object.getGroupID().equals(id)) {
@@ -104,8 +103,7 @@ public class Display_meeting_avail extends AppCompatActivity {
                                 }
 
                             }
-                            Toast.makeText(context, "No such date! Enter again", Toast.LENGTH_LONG).show();
-//                            return;
+                            Toast.makeText(context, "No such meeting, please retry", Toast.LENGTH_LONG).show();
 
                         }
                     }
