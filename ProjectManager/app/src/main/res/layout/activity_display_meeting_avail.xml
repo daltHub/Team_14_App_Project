@@ -41,7 +41,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:text="@string/displayresult"
-        android:textSize="20dp"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listtoshow" />
 
@@ -73,7 +73,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginBottom="10dp"
-        android:textSize="20dp"
+        android:textSize="22dp"
         android:text="Count"
         app:layout_constraintBottom_toTopOf="@+id/listtoshow"
         app:layout_constraintEnd_toEndOf="parent"
