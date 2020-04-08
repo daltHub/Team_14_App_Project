@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener {
+public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener, RecyclerAdapter.OnItemLongClick{
 
 
     int d, m, y;
@@ -61,7 +61,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(this, eventList);
+        adapter = new RecyclerAdapter(Calendar.this, eventList, this);
         recyclerView.setAdapter(adapter);
 
         reff = FirebaseDatabase.getInstance().getReference("events");
@@ -126,10 +126,6 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
 
-    public void removeEvent(String id){
-
-        Toast.makeText(Calendar.this,"Event Removed",Toast.LENGTH_SHORT).show();
-    }
 
     public void openDialog(Bundle bundle){
         EventPopUp eventPopUp = new EventPopUp();
@@ -180,6 +176,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
 
+    @Override
+    public void onLongClick(String value) {
 
-
+        reff.child(value).removeValue();
+    }
 }

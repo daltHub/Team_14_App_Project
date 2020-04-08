@@ -23,10 +23,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.eventV
     private Dialog myDialog;
     private boolean multiSelect = false;
     private ArrayList<Integer> selectedItems = new ArrayList<Integer>();
+    private OnItemLongClick Callback;
 
-    public RecyclerAdapter(Context context, List<Event> eventList){
+    public RecyclerAdapter(Context context, List<Event> eventList, OnItemLongClick listener){
         this.context = context;
         this.eventList = eventList;
+        this.Callback = listener;
     }
 
     @NonNull
@@ -56,7 +58,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.eventV
         vHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Toast.makeText(context, "Long Press", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Event Deleted", Toast.LENGTH_SHORT).show();
+                Callback.onLongClick(eventList.get(vHolder.getAdapterPosition()).getId());
                return true;
             }
         });
@@ -87,4 +90,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.eventV
 
         }
     }
+    public interface OnItemLongClick{
+        void onLongClick(String value);
+    }
+
 }
