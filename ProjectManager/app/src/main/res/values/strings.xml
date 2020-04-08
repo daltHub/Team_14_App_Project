@@ -13,4 +13,12 @@
     <string name="add_new_group_member">Add New Group Member</string>
     <string name="group_settings">Group Settings</string>
     <string name="group_screen">Change Group</string>
+    <string name="set_up_meeting">Set Up Meeting</string>
+    <string name="confirm">Confirm</string>
+    <string name="add_a_time">Set a Time</string>
+    <string name="finish">Finish</string>
+    <string name="displayresult">Enter the meeting that you want to delete in the format of Year/Month/Day/Hour/Minute
+    E.g. 2020/02/05/03/05</string>
+    <string name="set_more_dates">Set More Dates</string>
+
 </resources>
