@@ -2,6 +2,7 @@ package com.example.projectmanager;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -17,7 +19,8 @@ import androidx.fragment.app.DialogFragment;
 
 public class EventPopUp extends AppCompatDialogFragment {
     private EditText editName;
-    private EditText editDesc, editTime;
+    private EditText editDesc;
+    private TimePicker timePicker1;
     private TextView date;
     private DialogListener listener;
     @Override
@@ -31,6 +34,7 @@ public class EventPopUp extends AppCompatDialogFragment {
         date = view.findViewById(R.id.DialogTitle);
         date.setText("Date: " + Date);
 
+
         builder.setView(view)
                 .setTitle("New Event")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -43,18 +47,21 @@ public class EventPopUp extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i){
                         String name = editName.getText().toString();
-                        String time = editTime.getText().toString();
+                        int hour = timePicker1.getCurrentHour();
+                        int minute = timePicker1.getCurrentMinute();
                         String desc = editDesc.getText().toString();
-                        listener.applyText(name, time, desc);
+                        listener.applyText(name, hour, minute, desc);
                     }
 
         });
         editName = view.findViewById(R.id.edit_name);
-        editTime = view.findViewById(R.id.edit_time);
+        timePicker1 = view.findViewById(R.id.edit_time);
+        timePicker1.setIs24HourView(true);
         editDesc = view.findViewById(R.id.edit_desc);
 
         return builder.create();
     }
+
 
     @Override
     public void onAttach(Context context){
@@ -65,8 +72,7 @@ public class EventPopUp extends AppCompatDialogFragment {
             throw new ClassCastException(context.toString() + "must implement DialogListener");
         }
     }
-
     public interface DialogListener{
-        void applyText(String name, String time, String desc);
+        void applyText(String name, int hour, int minute, String desc);
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="prompt">Choose a time</string>
+
+    <integer-array name="time_array">
+        <item>0100</item>
+
+
+
+    </integer-array>
+
+
+</resources>
