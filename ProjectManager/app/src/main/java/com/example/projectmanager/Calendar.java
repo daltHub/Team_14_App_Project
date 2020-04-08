@@ -126,6 +126,11 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
 
+    public void removeEvent(String id){
+
+        Toast.makeText(Calendar.this,"Event Removed",Toast.LENGTH_SHORT).show();
+    }
+
     public void openDialog(Bundle bundle){
         EventPopUp eventPopUp = new EventPopUp();
         eventPopUp.setArguments(bundle);

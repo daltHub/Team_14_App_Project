@@ -1,19 +1,28 @@
 package com.example.projectmanager;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.eventViewHolder>{
 
     private Context context;
     private List<Event> eventList;
+    private Dialog myDialog;
+    private boolean multiSelect = false;
+    private ArrayList<Integer> selectedItems = new ArrayList<Integer>();
 
     public RecyclerAdapter(Context context, List<Event> eventList){
         this.context = context;
@@ -25,14 +34,41 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.eventV
     public eventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.event_list, null);
-        return new eventViewHolder(view);
+        final eventViewHolder vHolder = new eventViewHolder(view);
+
+
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.event_details);
+
+
+        vHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView name = myDialog.findViewById(R.id.event_name);
+                TextView time = myDialog.findViewById(R.id.event_time);
+                TextView desc = myDialog.findViewById(R.id.event_desc);
+                name.setText(eventList.get(vHolder.getAdapterPosition()).getName());
+                time.setText(eventList.get(vHolder.getAdapterPosition()).getHour() + ":" + eventList.get(vHolder.getAdapterPosition()).getMinute());
+                desc.setText(eventList.get(vHolder.getAdapterPosition()).getDesc());
+                myDialog.show();
+            }
+        });
+        vHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(context, "Long Press", Toast.LENGTH_SHORT).show();
+               return true;
+            }
+        });
+        return vHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull eventViewHolder holder, int position) {
         Event event = eventList.get(position);
         holder.eventName.setText(event.getName());
-        holder.eventTime.setText(String.valueOf(event.getHour() + ":" + event.getMinute()));
+        holder.eventTime.setText(event.getHour() + ":" + event.getMinute());
+
     }
 
     @Override
