@@ -12,13 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/DialogTitle"
-        android:hint="Title"/>
-    <EditText
+        android:hint="Event Name"/>
+
+
+    <TimePicker
         android:id="@+id/edit_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edit_name"
-        android:hint="Time"/>
+        android:timePickerMode="spinner"/>
+
     <EditText
         android:id="@+id/edit_desc"
         android:layout_width="match_parent"

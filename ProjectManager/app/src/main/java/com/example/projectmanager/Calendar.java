@@ -110,14 +110,15 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         }
     }
 
-    private void addEvent(String text, String time, String desc){
+    private void addEvent(String text, int hour, int min, String desc){
         event=new Event();
         //String text = inputField.getText().toString();
         String id = reff.push().getKey();
         event.setId(id);
         event.setName(text);
         event.setDesc(desc);
-        event.setTime(Integer.parseInt(time));
+        event.setHour(hour);
+        event.setMinute(min);
         event.setDate(date);
         event.setGroupID(groupId);
         reff.child(id).setValue(event);
@@ -132,9 +133,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
     @Override
-    public void applyText(String Name, String time, String desc){
+    public void applyText(String Name, int hour, int minute, String desc){
         //inputField.setText(Name);
-        addEvent(Name, time, desc);
+        addEvent(Name, hour, minute, desc);
     }
 
     protected void displayEvents(){
@@ -155,7 +156,14 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                     Collections.sort(eventList, new Comparator<Event>(){
                         @Override
                         public int compare(Event e1, Event e2) {
-                            return Integer.valueOf(e1.getTime()).compareTo(Integer.valueOf(e2.getTime()));
+                            int hourCmp = Integer.valueOf(e1.getHour()).compareTo(Integer.valueOf(e2.getHour()));
+                            if(hourCmp != 0){
+                                return hourCmp;
+                            }
+                            int minCmp = Integer.valueOf(e1.getMinute()).compareTo(Integer.valueOf(e2.getMinute()));
+                            return minCmp;
+
+                            //return Integer.valueOf(e1.getTime()).compareTo(Integer.valueOf(e2.getTime()));
                         }
                     });
                     adapter.notifyDataSetChanged();
@@ -165,7 +173,6 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
                 }
         });
     }
-
 
 
 

@@ -1,7 +1,8 @@
 package com.example.projectmanager;
 
 public class Event {
-    private int Time;
+    private int Hour;
+    private int Minute;
     private String Date;
     private String GroupID;
     private String id;
@@ -20,6 +21,22 @@ public class Event {
 
     }
 
+    public int getHour() {
+        return Hour;
+    }
+
+    public void setHour(int hour) {
+        Hour = hour;
+    }
+
+    public int getMinute() {
+        return Minute;
+    }
+
+    public void setMinute(int minute) {
+        Minute = minute;
+    }
+
     public String getDate() {
         return Date;
     }
@@ -32,13 +49,6 @@ public class Event {
         return Desc;
     }
 
-    public int getTime() {
-        return Time;
-    }
-
-    public void setTime(int time) {
-        Time = time;
-    }
 
     public void setDesc(String desc) {
         Desc = desc;
