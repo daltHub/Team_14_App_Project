@@ -34,8 +34,8 @@ public class Message {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String uName) {
+        this.name = uName;
     }
 
     public String getPhotoUrl() {

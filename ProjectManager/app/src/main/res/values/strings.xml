@@ -13,4 +13,5 @@
     <string name="add_new_group_member">Add New Group Member</string>
     <string name="group_settings">Group Settings</string>
     <string name="group_screen">Change Group</string>
+    <string name="backup">back to menu</string>
 </resources>

@@ -43,7 +43,7 @@ public class Homescreen extends AppCompatActivity {
 
         messages.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent messenger = new Intent(v.getContext(), Messenger.class);
+                Intent messenger = new Intent(v.getContext(), Messaging.class);
                 messenger.putExtra("GROUPID",groupId);
                 startActivity(messenger);
             }

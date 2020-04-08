@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -49,7 +49,7 @@ import com.google.firebase.storage.UploadTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Messenger extends AppCompatActivity
+public class Messaging extends FragmentActivity
         implements GoogleApiClient.OnConnectionFailedListener {
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +67,7 @@ public class Messenger extends AppCompatActivity
         }
     }
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MessagingActivity";
     public static final String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -79,7 +79,7 @@ public class Messenger extends AppCompatActivity
     private String mPhotoUrl;
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
-    private static final String MESSAGE_URL = "https://herdingcats-ac9e6.firebaseio.com/message";
+    private static final String MESSAGE_URL = "https://herdingcats-c571a.firebaseio.com/messenger/";
 
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
@@ -108,10 +108,10 @@ public class Messenger extends AppCompatActivity
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API)
+//                .build();
 
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -153,7 +153,7 @@ public class Messenger extends AppCompatActivity
                     viewHolder.messageTextView.setText(friendlyMessage.getText());
                     viewHolder.messageTextView.setVisibility(TextView.VISIBLE);
                     viewHolder.messageImageView.setVisibility(ImageView.GONE);
-                } else if (friendlyMessage.getImageUrl() != null) {
+                }  else if (friendlyMessage.getImageUrl() != null) {
                     String imageUrl = friendlyMessage.getImageUrl();
                     if (imageUrl.startsWith("gs://")) {
                         StorageReference storageReference = FirebaseStorage.getInstance()
@@ -185,10 +185,10 @@ public class Messenger extends AppCompatActivity
 
                 viewHolder.messengerTextView.setText(friendlyMessage.getName());
                 if (friendlyMessage.getPhotoUrl() == null) {
-                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(Messenger.this,
+                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(Messaging.this,
                             R.drawable.ic_account_circle_black_36dp));
                 } else {
-                    Glide.with(Messenger.this)
+                    Glide.with(Messaging.this)
                             .load(friendlyMessage.getPhotoUrl())
                             .into(viewHolder.messengerImageView);
                 }
@@ -356,13 +356,13 @@ public class Messenger extends AppCompatActivity
     }
 
     private void putImageInStorage(StorageReference storageReference, Uri uri, final String key) {
-        storageReference.putFile(uri).addOnCompleteListener(Messenger.this,
+        storageReference.putFile(uri).addOnCompleteListener(Messaging.this,
                 new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
                             task.getResult().getMetadata().getReference().getDownloadUrl()
-                                    .addOnCompleteListener(Messenger.this,
+                                    .addOnCompleteListener(Messaging.this,
                                             new OnCompleteListener<Uri>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Uri> task) {
