@@ -6,36 +6,80 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ToDoList extends AppCompatActivity {
     private static final String TAG = "ToDoList";
-    private TaskDbHelper mHelper;
     private ListView mTaskListView;
+    private DatabaseReference mDatabase;
+    private DatabaseReference taskref;
+    Query taskquery;
     private ArrayAdapter<String> mAdapter;
+    String groupId;
+    List<ToDoTask> tasklist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
-        final String groupId = getIntent().getStringExtra("GROUPID");
-        Log.e("GROUPID - TEST", groupId);
-        mHelper = new TaskDbHelper(this);
+        groupId = getIntent().getStringExtra("GROUPID");
         mTaskListView = (ListView) findViewById(R.id.list_todo);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        tasklist = new ArrayList<ToDoTask>();
+        taskref = FirebaseDatabase.getInstance().getReference("tasks");
+        taskquery = taskref.orderByChild("groupid").equalTo(groupId);
+        taskquery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> listItems = new ArrayList<String>();
+                if (dataSnapshot.exists()) {
+                    tasklist.clear();
 
-        updateUI();
+                    for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
+                        ToDoTask todo = eventSnapshot.getValue(ToDoTask.class);
+                        tasklist.add(todo);
+                        listItems.add(todo.getTaskname());
+                    }
+                }
+                else{
+                    listItems.add("This group has no tasks yet");
+                }
+                ArrayAdapter ad = new ArrayAdapter(ToDoList.this,
+                        android.R.layout.simple_list_item_1, listItems);
+                mTaskListView.setAdapter(ad);
+                mTaskListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                        deleteTask(tasklist.get(position).getTaskid());
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+        //updateUI();
     }
 
     @Override
@@ -46,12 +90,9 @@ public class ToDoList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final String groupId = getIntent().getStringExtra("GROUPID");
-        Log.e("GROUPID - TEST", groupId);
         switch (item.getItemId()) {
             case R.id.action_homescreen:
                 Intent goHome = new Intent(this, Homescreen.class);
-                goHome.putExtra("GROUPID",groupId);
                 startActivity(goHome);
                 return true;
             case R.id.action_add_task:
@@ -64,15 +105,9 @@ public class ToDoList extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String task = String.valueOf(taskEditText.getText());
-                                SQLiteDatabase db = mHelper.getWritableDatabase();
-                                ContentValues values = new ContentValues();
-                                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-                                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
-                                        null,
-                                        values,
-                                        SQLiteDatabase.CONFLICT_REPLACE);
-                                db.close();
-                                updateUI();
+                                String id = mDatabase.child("tasks").push().getKey();
+                                ToDoTask td = new ToDoTask(task,groupId,id);
+                                mDatabase.child("tasks").child(id).setValue(td);
                             }
                         })
                         .setNegativeButton("Cancel", null)
@@ -85,42 +120,31 @@ public class ToDoList extends AppCompatActivity {
         }
     }
 
-    public void deleteTask(View view) {
-        View parent = (View) view.getParent();
-        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
-        String task = String.valueOf(taskTextView.getText());
-        SQLiteDatabase db = mHelper.getWritableDatabase();
-        db.delete(TaskContract.TaskEntry.TABLE,
-                TaskContract.TaskEntry.COL_TASK_TITLE + " = ?",
-                new String[]{task});
-        db.close();
-        updateUI();
+    public void deleteTask(String taskId) {
+        final String tas = taskId;
+        final DatabaseReference tasksref = FirebaseDatabase.getInstance().getReference("tasks");
+        AlertDialog.Builder newGroup = new AlertDialog.Builder(ToDoList.this);
+        LinearLayout lila1= new LinearLayout(ToDoList.this);
+        lila1.setOrientation(1); //1 is for vertical orientation
+        newGroup.setView(lila1);
+        newGroup.setCancelable(true)
+                .setMessage("Remove this task?")
+                .setPositiveButton("Okay",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        tasksref.child(tas).removeValue();
+                    }
+                })
+                .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }) ;
+        AlertDialog alert = newGroup.create();
+        alert.setTitle("Remove Task");
+        alert.show();
     }
 
-    private void updateUI() {
-        ArrayList<String> taskList = new ArrayList<>();
-        SQLiteDatabase db = mHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
-                null, null, null, null, null);
-        while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            taskList.add(cursor.getString(idx));
-        }
 
-        if (mAdapter == null) {
-            mAdapter = new ArrayAdapter<>(this,
-                    R.layout.item_todo,
-                    R.id.task_title,
-                    taskList);
-            mTaskListView.setAdapter(mAdapter);
-        } else {
-            mAdapter.clear();
-            mAdapter.addAll(taskList);
-            mAdapter.notifyDataSetChanged();
-        }
-
-        cursor.close();
-        db.close();
-    }
 }
