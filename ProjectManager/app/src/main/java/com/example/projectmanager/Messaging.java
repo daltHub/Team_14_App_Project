@@ -148,10 +148,10 @@ public class Messaging extends FragmentActivity
 
 
 
-        final DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);
+        final DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD); // messagesRef holds all /messages
         FirebaseRecyclerOptions<Message> options =
                 new FirebaseRecyclerOptions.Builder<Message>()
-                        .setQuery(messagesRef, parser)
+                        .setQuery(GroupQuery, parser)
                         .build();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<Message, MessageViewHolder>(options) {
             @Override
@@ -198,13 +198,14 @@ public class Messaging extends FragmentActivity
                     viewHolder.messageImageView.setVisibility(ImageView.VISIBLE);
                     viewHolder.messageTextView.setVisibility(TextView.GONE);
                 }
+                // change here
 
 
                 viewHolder.messengerTextView.setText(friendlyMessage.getName());
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(Messaging.this,
                             R.drawable.ic_account_circle_black_36dp));
-                }
+                } // change here
 
             }
         };
