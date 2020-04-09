@@ -32,7 +32,7 @@
             android:name=".ToDoList"
             android:label="@string/to_do_list" />
         <activity
-            android:name=".Messenger"
+            android:name=".Messaging"
             android:label="@string/messenger" />
         <activity
             android:name=".Calendar"
