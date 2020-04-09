@@ -31,12 +31,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener {
+public class Calendar extends AppCompatActivity implements EventPopUp.DialogListener, RecyclerAdapter.OnItemLongClick{
 
 
     int d, m, y;
+    String groupId;
     String date;
     CalendarView calendarView;
     DatabaseReference reff;
@@ -50,7 +53,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        final String groupId = getIntent().getStringExtra("GROUPID");
+        groupId = getIntent().getStringExtra("GROUPID");
         Log.e("GROUPID - TEST", groupId);
         eventList = new ArrayList<>();
         calendarView = findViewById(R.id.calendarView);
@@ -58,7 +61,7 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(this, eventList);
+        adapter = new RecyclerAdapter(Calendar.this, eventList, this);
         recyclerView.setAdapter(adapter);
 
         reff = FirebaseDatabase.getInstance().getReference("events");
@@ -107,18 +110,21 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
         }
     }
 
-    private void addEvent(String text, String time, String desc){
+    private void addEvent(String text, int hour, int min, String desc){
         event=new Event();
         //String text = inputField.getText().toString();
         String id = reff.push().getKey();
         event.setId(id);
         event.setName(text);
         event.setDesc(desc);
-        event.setTime(time);
+        event.setHour(hour);
+        event.setMinute(min);
         event.setDate(date);
+        event.setGroupID(groupId);
         reff.child(id).setValue(event);
         Toast.makeText(Calendar.this,"Event Saved",Toast.LENGTH_SHORT).show();
     }
+
 
 
     public void openDialog(Bundle bundle){
@@ -128,9 +134,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
     @Override
-    public void applyText(String Name, String time, String desc){
+    public void applyText(String Name, int hour, int minute, String desc){
         //inputField.setText(Name);
-        addEvent(Name, time, desc);
+        addEvent(Name, hour, minute, desc);
     }
 
     protected void displayEvents(){
@@ -143,10 +149,24 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
 
                             Event event = eventSnapshot.getValue(Event.class);
 
-                            eventList.add(event);
+                            if(event.getGroupID().equals(groupId)){
+                                eventList.add(event);
+                            }
                         }
                     }
-                    query = reff.orderByChild("time");
+                    Collections.sort(eventList, new Comparator<Event>(){
+                        @Override
+                        public int compare(Event e1, Event e2) {
+                            int hourCmp = Integer.valueOf(e1.getHour()).compareTo(Integer.valueOf(e2.getHour()));
+                            if(hourCmp != 0){
+                                return hourCmp;
+                            }
+                            int minCmp = Integer.valueOf(e1.getMinute()).compareTo(Integer.valueOf(e2.getMinute()));
+                            return minCmp;
+
+                            //return Integer.valueOf(e1.getTime()).compareTo(Integer.valueOf(e2.getTime()));
+                        }
+                    });
                     adapter.notifyDataSetChanged();
                 }
                 @Override
@@ -156,5 +176,9 @@ public class Calendar extends AppCompatActivity implements EventPopUp.DialogList
     }
 
 
+    @Override
+    public void onLongClick(String value) {
 
+        reff.child(value).removeValue();
+    }
 }

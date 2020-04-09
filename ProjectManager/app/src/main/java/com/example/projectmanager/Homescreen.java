@@ -9,8 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+
 public class Homescreen extends AppCompatActivity {
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        String groupIdloop = getIntent().getStringExtra("Looping");
+        
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +61,7 @@ public class Homescreen extends AppCompatActivity {
 
         progress.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent prog = new Intent(v.getContext(), Voting.class);
+                Intent prog = new Intent(v.getContext(), Voting_v2.class);
                 prog.putExtra("GROUPID",groupId);
                 startActivity(prog);
             }

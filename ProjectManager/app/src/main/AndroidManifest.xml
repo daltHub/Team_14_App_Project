@@ -9,13 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Display_meeting_avail"></activity>
+        <activity android:name=".meeting_setter" />
+        <activity android:name=".displayresult" />
+        <activity android:name=".Voting_v2" />
         <activity
             android:name=".GroupSettings"
-            android:label = "@string/group_settings" />
+            android:label="@string/group_settings" />
         <activity android:name=".EditGroup" />
         <activity
             android:name=".GroupScreen"
-            android:label="@string/groupscreen"/>
+            android:label="@string/groupscreen" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,14 +35,8 @@
             android:name=".Messaging"
             android:label="@string/messenger" />
         <activity
-            android:name=".Voting"
-            android:label="@string/availability_poll" />
-        <activity
             android:name=".Calendar"
             android:label="@string/calendar" />
-        <activity
-            android:name=".Result"
-            android:label="@string/availability_poll" />
     </application>
 
 </manifest>
