@@ -302,17 +302,15 @@ public class Messaging extends FragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.sign_out_menu:
-                mFirebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-                mUsername = ANONYMOUS;
-                startActivity(new Intent(this, Homescreen.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        final String groupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", groupId);
+        if (item.getItemId() == R.id.action_homescreen) {
+            Intent goHome = new Intent(this, Homescreen.class);
+            goHome.putExtra("GROUPID", groupId);
+            startActivity(goHome);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
