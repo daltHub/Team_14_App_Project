@@ -79,7 +79,14 @@ public class CustomAdapter extends ArrayAdapter<State> {
         checkBox.setTag(position);
         checkBox.setChecked(singlestate.available);
 
-        tv1.setText(singlestate.getMeeting().getStringoftime());
+        String mth = String.format("%02d", singlestate.getMeeting().getMonth());
+        String day = String.format("%02d", singlestate.getMeeting().getDate());
+        String hour = String.format("%02d", singlestate.getMeeting().getHour());
+        String min = String.format("%02d", singlestate.getMeeting().getMinute());
+
+        String displaytime = mth + "-" + day + "  " + hour + " : " + min;
+
+        tv1.setText(displaytime);
         tv2.setText(String.valueOf(singlestate.getMeeting().getCount()));
 
         return v;
