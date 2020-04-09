@@ -48,7 +48,7 @@ public class GroupSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_settings);
         groupId = getIntent().getStringExtra("GROUPID");
-        mDatabase = FirebaseDatabase.getInstance().getReference();;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         groupuserList = new ArrayList<Groupuser>();
         groupName = findViewById(R.id.groupName);
         groupmembers = findViewById(R.id.messages_view);
