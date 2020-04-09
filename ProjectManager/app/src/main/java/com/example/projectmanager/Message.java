@@ -4,18 +4,21 @@ public class Message {
 
     private String id;
     private String text;
-    private String name;
+    private String group;
+
     private String photoUrl;
     private String imageUrl;
+    private String name;
 
     public Message() {
     }
 
-    public Message(String text, String name, String photoUrl, String imageUrl) {
+    public Message(String text,  String group, String photoUrl, String imageUrl, String name) {
         this.text = text;
-        this.name = name;
+        this.group = group;
         this.photoUrl = photoUrl;
         this.imageUrl = imageUrl;
+        this.name = name;
     }
 
     public String getId() {
@@ -36,6 +39,14 @@ public class Message {
 
     public void setName(String uName) {
         this.name = uName;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getPhotoUrl() {

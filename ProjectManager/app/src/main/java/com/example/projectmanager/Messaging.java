@@ -43,6 +43,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -60,6 +61,7 @@ public class Messaging extends FragmentActivity
 
         public MessageViewHolder(View v) {
             super(v);
+
             messageTextView = itemView.findViewById(R.id.messageTextView);
             messageImageView = itemView.findViewById(R.id.messageImageView);
             messengerTextView = itemView.findViewById(R.id.messengerTextView);
@@ -77,9 +79,11 @@ public class Messaging extends FragmentActivity
     private static final String MESSAGE_SENT_EVENT = "message_sent";
     private String mUsername;
     private String mPhotoUrl;
+    private String mGroupId;
     private SharedPreferences mSharedPreferences;
     private GoogleApiClient mGoogleApiClient;
     private static final String MESSAGE_URL = "https://herdingcats-c571a.firebaseio.com/messenger/";
+    Query GroupQuery;
 
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
@@ -92,26 +96,30 @@ public class Messaging extends FragmentActivity
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mFirebaseDatabaseReference2;
     private FirebaseRecyclerAdapter<Message, MessageViewHolder>
             mFirebaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
+        mUsername = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
+
+        mGroupId = getIntent().getStringExtra("GROUPID");
+        Log.e("GROUPID - TEST", mGroupId);
+        //        mGroupId = FirebaseAuth.getInstance().getClass(). ;
+        //        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         // Initialize Firebase Auth
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-
-//        mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API)
-//                .build();
 
         // Initialize ProgressBar and RecyclerView.
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -120,19 +128,27 @@ public class Messaging extends FragmentActivity
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
+
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mFirebaseDatabaseReference2 = FirebaseDatabase.getInstance().getReference("messages");
+        GroupQuery = mFirebaseDatabaseReference2.orderByChild("group").equalTo(mGroupId);
+
+
         SnapshotParser<Message> parser = new SnapshotParser<Message>() {
             @Override
             public Message parseSnapshot(DataSnapshot dataSnapshot) {
                 Message friendlyMessage = dataSnapshot.getValue(Message.class);
-                if (friendlyMessage != null) {
+                if (friendlyMessage != null /*&& friendlyMessage.getGroup() == mGroupId*/) {
+
                     friendlyMessage.setId(dataSnapshot.getKey());
                 }
                 return friendlyMessage;
             }
         };
 
-        DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);
+
+
+        final DatabaseReference messagesRef = mFirebaseDatabaseReference.child(MESSAGES_CHILD);
         FirebaseRecyclerOptions<Message> options =
                 new FirebaseRecyclerOptions.Builder<Message>()
                         .setQuery(messagesRef, parser)
@@ -149,7 +165,8 @@ public class Messaging extends FragmentActivity
                                             int position,
                                             Message friendlyMessage) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-                if (friendlyMessage.getText() != null) {
+
+                if (friendlyMessage != null) {
                     viewHolder.messageTextView.setText(friendlyMessage.getText());
                     viewHolder.messageTextView.setVisibility(TextView.VISIBLE);
                     viewHolder.messageImageView.setVisibility(ImageView.GONE);
@@ -187,10 +204,6 @@ public class Messaging extends FragmentActivity
                 if (friendlyMessage.getPhotoUrl() == null) {
                     viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(Messaging.this,
                             R.drawable.ic_account_circle_black_36dp));
-                } else {
-                    Glide.with(Messaging.this)
-                            .load(friendlyMessage.getPhotoUrl())
-                            .into(viewHolder.messengerImageView);
                 }
 
             }
@@ -242,25 +255,17 @@ public class Messaging extends FragmentActivity
             public void onClick(View view) {
                 Message friendlyMessage = new
                         Message(mMessageEditText.getText().toString(),
-                        mUsername,
+                        mGroupId,
                         mPhotoUrl,
-                        null /* no image */);
+                        null, /* no image */
+                        mUsername);
                 mFirebaseDatabaseReference.child(MESSAGES_CHILD)
                         .push().setValue(friendlyMessage);
                 mMessageEditText.setText("");
             }
         });
 
-        mAddMessageImageView = (ImageView) findViewById(R.id.addMessageImageView);
-        mAddMessageImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
-                startActivityForResult(intent, REQUEST_IMAGE);
-            }
-        });
+
     }
 
     @Override
@@ -317,70 +322,8 @@ public class Messaging extends FragmentActivity
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
 
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    final Uri uri = data.getData();
-                    Log.d(TAG, "Uri: " + uri.toString());
 
-                    Message tempMessage = new Message(null, mUsername, mPhotoUrl,
-                            LOADING_IMAGE_URL);
-                    mFirebaseDatabaseReference.child(MESSAGES_CHILD).push()
-                            .setValue(tempMessage, new DatabaseReference.CompletionListener() {
-                                @Override
-                                public void onComplete(DatabaseError databaseError,
-                                                       DatabaseReference databaseReference) {
-                                    if (databaseError == null) {
-                                        String key = databaseReference.getKey();
-                                        StorageReference storageReference =
-                                                FirebaseStorage.getInstance()
-                                                        .getReference(mFirebaseUser.getUid())
-                                                        .child(key)
-                                                        .child(uri.getLastPathSegment());
 
-                                        putImageInStorage(storageReference, uri, key);
-                                    } else {
-                                        Log.w(TAG, "Unable to write message to database.",
-                                                databaseError.toException());
-                                    }
-                                }
-                            });
-                }
-            }
-        }
-    }
-
-    private void putImageInStorage(StorageReference storageReference, Uri uri, final String key) {
-        storageReference.putFile(uri).addOnCompleteListener(Messaging.this,
-                new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            task.getResult().getMetadata().getReference().getDownloadUrl()
-                                    .addOnCompleteListener(Messaging.this,
-                                            new OnCompleteListener<Uri>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Uri> task) {
-                                                    if (task.isSuccessful()) {
-                                                        Message friendlyMessage =
-                                                                new Message(null, mUsername, mPhotoUrl,
-                                                                        task.getResult().toString());
-                                                        mFirebaseDatabaseReference.child(MESSAGES_CHILD).child(key)
-                                                                .setValue(friendlyMessage);
-                                                    }
-                                                }
-                                            });
-                        } else {
-                            Log.w(TAG, "Image upload task was not successful.",
-                                    task.getException());
-                        }
-                    }
-                });
-    }
 
 }
