@@ -125,7 +125,7 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
                     DialogFragment timepicker = new displayresult();
                     timepicker.show(getSupportFragmentManager(), "MSG");
                 } else{
-                    Toast.makeText(context, "Meeting not yet set, please retry", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Date not yet set, please retry", Toast.LENGTH_LONG).show();
                 }
 
 
