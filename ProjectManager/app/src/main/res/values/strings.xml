@@ -21,5 +21,6 @@
     <string name="displayresult">Enter the meeting that you want to delete in the format of Year/Month/Day/Hour/Minute
     E.g. 2020/02/05/03/05</string>
     <string name="set_more_dates">Set More Dates</string>
+    <string name="enter">Enter</string>
 
 </resources>
