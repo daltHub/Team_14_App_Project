@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,6 +28,7 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
     String day, mth, yr, min, hour;
     int intday, intmth, intyr, intmin, inthour;
     String wholedata;
+    Context context = this;
 
     String groupID;
     final meeting_helper set = new meeting_helper();
@@ -71,13 +74,19 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
                 formatmin = String.format("%02d", intmin);
 
                 wholedata = yr + "/" + formatmth + "/" + formatday + "/" + formathour + "/" + formatmin;
-                set.setStringoftime(wholedata);
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("meetings");
-                databaseReference.push().setValue(set);
-                //databaseReference.push().setValue("Success");
-                Intent newvote = new Intent(getBaseContext(), Display_meeting_avail.class);
-                newvote.putExtra("GROUPID", groupID);
-                startActivity(newvote);
+
+                if(yr != null){
+                    set.setStringoftime(wholedata);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("meetings");
+                    databaseReference.push().setValue(set);
+                    //databaseReference.push().setValue("Success");
+                    Intent newvote = new Intent(getBaseContext(), Display_meeting_avail.class);
+                    newvote.putExtra("GROUPID", groupID);
+                    startActivity(newvote);
+                } else{
+                    Toast.makeText(context, "Meeting not yet set, please retry", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });
@@ -95,9 +104,14 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
                 formatmin = String.format("%02d", intmin);
 
                 wholedata = yr + "/" + formatmth + "/" + formatday + "/" + formathour + "/" + formatmin;
-                set.setStringoftime(wholedata);
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("meetings");
-                databaseReference.push().setValue(set);
+                if(yr!=null){
+                    set.setStringoftime(wholedata);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("meetings");
+                    databaseReference.push().setValue(set);
+                } else{
+                    Toast.makeText(context, "Meeting not yet set, please retry", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });
@@ -107,8 +121,16 @@ public class meeting_setter extends AppCompatActivity implements TimePickerDialo
             @Override
             public void onClick(View view) {
 
-                DialogFragment timepicker = new displayresult();
-                timepicker.show(getSupportFragmentManager(), "MSG");
+                if(yr != null){
+                    DialogFragment timepicker = new displayresult();
+                    timepicker.show(getSupportFragmentManager(), "MSG");
+                } else{
+                    Toast.makeText(context, "Date not yet set, please retry", Toast.LENGTH_LONG).show();
+                }
+
+
+
+
 
             }
         });
