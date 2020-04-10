@@ -6,37 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".GroupSettings">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="vertical"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
 
-        <TextView
-            android:id="@+id/groupName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+    <ListView
+        android:id="@+id/messages_view"
+        android:layout_width="342dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:divider="#fff"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/newMember"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupName"
+        tools:context=".DisplayMessageActivity"/>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:id="@+id/messages_view"
-            android:layout_weight="2"
-            android:divider="#fff"
-            android:layout_height="wrap_content"
-            tools:context=".DisplayMessageActivity"
-            >
+    <Button
+        android:id="@+id/newMember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector_green"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/add_new_group_member"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/groupName"
+        app:layout_constraintVertical_bias="0.954" />
 
-        </ListView>
-
-        <Button
-            android:id="@+id/newMember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_selector_green"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="@string/add_new_group_member"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#000000" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
